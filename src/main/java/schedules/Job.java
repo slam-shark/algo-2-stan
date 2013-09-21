@@ -15,6 +15,7 @@ public abstract class Job implements Comparable<Job> {
     }
 
     public abstract double getSignificance();
+
     public abstract String getDescription();
 
     @Override
@@ -30,6 +31,5 @@ public abstract class Job implements Comparable<Job> {
 	if (weight > j.weight)
 	    return 1;
 	return 0;
-
     }
 }
