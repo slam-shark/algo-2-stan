@@ -7,14 +7,14 @@ import java.util.Collections;
 import java.util.List;
 
 public class Schedule {
-    List<Job> jobs;
+    List<AbstractJob> abstractJobs;
     List<Double> wct;
     double totalWCT = -1;
 
-    public Schedule(String filePath, Job j) {
-	jobs = getArray(filePath, j);
-	Collections.sort(jobs);
-	Collections.reverse(jobs);
+    public Schedule(String filePath, AbstractJob j) {
+	abstractJobs = getArray(filePath, j);
+	Collections.sort(abstractJobs);
+	Collections.reverse(abstractJobs);
     }
 
     /*
@@ -23,7 +23,7 @@ public class Schedule {
     public void getWCT() {
 	totalWCT = 0;
 	int time = 0;
-	for (Job j : jobs) {
+	for (AbstractJob j : abstractJobs) {
 	    time += j.length;
 	    totalWCT += (time * j.weight);
 	}
@@ -48,8 +48,8 @@ public class Schedule {
     /*
      * Reads schedule from file. Format for 2+ line: {[i_weight] [i_length]}
      */
-    private List<Job> getArray(String filePath, Job j) {
-	List<Job> array = new ArrayList<Job>();
+    private List<AbstractJob> getArray(String filePath, AbstractJob j) {
+	List<AbstractJob> array = new ArrayList<AbstractJob>();
 	try {
 	    FileReader fr = new FileReader(filePath);
 	    @SuppressWarnings("resource")
@@ -59,8 +59,8 @@ public class Schedule {
 		String[] split = line.trim().split("(\\s)+");
 		int w = Integer.parseInt(split[0]);
 		int l = Integer.parseInt(split[1]);
-		Job job =(Class.forName(j.getClass().getName())).asSubclass(Job.class).getConstructor(int.class,int.class).newInstance(w, l);
-		array.add(job);
+		AbstractJob abstractJob =(Class.forName(j.getClass().getName())).asSubclass(AbstractJob.class).getConstructor(int.class,int.class).newInstance(w, l);
+		array.add(abstractJob);
 	    }
 	} catch (Exception e) {
 	    e.printStackTrace();

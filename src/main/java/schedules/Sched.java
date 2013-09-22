@@ -27,7 +27,7 @@ public class Sched extends JFrame {
     private static final long serialVersionUID = -4039212345879967939L;
     private JPanel contentPane;
     private JTextField txtFilePath;
-    private JComboBox<Job> cmbSelectType;
+    private JComboBox<AbstractJob> cmbSelectType;
     private JTextField txtResult;
 
     /**
@@ -79,7 +79,7 @@ public class Sched extends JFrame {
 	    public void actionPerformed(ActionEvent e) {
 		File f = new File(txtFilePath.getText());
 		if (f.exists()) {
-		    Schedule s = new Schedule(f.getAbsolutePath(), (Job) cmbSelectType.getSelectedItem());
+		    Schedule s = new Schedule(f.getAbsolutePath(), (AbstractJob) cmbSelectType.getSelectedItem());
 		    s.getWCT();
 		    txtResult.setText(s.getFormattedResult());
 		}
@@ -87,7 +87,7 @@ public class Sched extends JFrame {
 	});
 	contentPane.add(btnStart);
 
-	cmbSelectType = new JComboBox<Job>();
+	cmbSelectType = new JComboBox<AbstractJob>();
 	contentPane.add(cmbSelectType);
 	cmbSelectType.setRenderer(new DefaultListCellRenderer() {
 	    private static final long serialVersionUID = -2697428668350742048L;
@@ -96,7 +96,7 @@ public class Sched extends JFrame {
 		    boolean cellHasFocus) {
 		super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 		if (value != null) {
-		    Job j = (Job) value;
+		    AbstractJob j = (AbstractJob) value;
 		    setText(j.getDescription());
 		}
 		return this;

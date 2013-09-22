@@ -4,7 +4,7 @@
  */
 package main.java.schedules;
 
-public class JobDifference extends Job {
+public class JobDifference extends AbstractJob {
 
     public JobDifference(int w, int l) {
 	super(w, l);

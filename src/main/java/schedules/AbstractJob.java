@@ -5,11 +5,11 @@
  */
 package main.java.schedules;
 
-public abstract class Job implements Comparable<Job> {
+public abstract class AbstractJob implements Comparable<AbstractJob> {
     final int weight;
     final int length;
 
-    Job(int w, int l) {
+    AbstractJob(int w, int l) {
 	weight = w;
 	length = l;
     }
@@ -19,7 +19,7 @@ public abstract class Job implements Comparable<Job> {
     public abstract String getDescription();
 
     @Override
-    public int compareTo(Job j) {
+    public int compareTo(AbstractJob j) {
 	double signThis = getSignificance();
 	double signThat = j.getSignificance();
 	if (signThis < signThat)

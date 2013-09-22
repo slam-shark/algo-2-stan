@@ -4,7 +4,7 @@
  */
 package main.java.schedules;
 
-public class JobRatio extends Job {
+public class JobRatio extends AbstractJob {
 
     public JobRatio(int w, int l) {
 	super(w, l);
