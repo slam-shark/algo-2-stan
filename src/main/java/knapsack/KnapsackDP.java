@@ -2,11 +2,12 @@ package main.java.knapsack;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Deque;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NavigableSet;
+import java.util.TreeSet;
 
 public class KnapsackDP implements Knapsack {
 
@@ -15,7 +16,7 @@ public class KnapsackDP implements Knapsack {
     List<Item> items;
     int[][] vals;
     int total = -1;
-    Deque<Item> selectedItems;
+    NavigableSet<Item> selectedItems;
 
     public KnapsackDP() {
     }
@@ -61,7 +62,7 @@ public class KnapsackDP implements Knapsack {
     }
 
     @Override
-    public Deque<Item> getSelectedItems() {
+    public NavigableSet<Item> getSelectedItems() {
 	if (selectedItems == null)
 	    traceBack();
 	return selectedItems;
@@ -85,7 +86,7 @@ public class KnapsackDP implements Knapsack {
     @Override
     public void calculate() {
 	for (int i = 1; i <= numberOfItems; i++) {
-	    Item it = items.get(i - 1); 
+	    Item it = items.get(i - 1);
 	    for (int j = 0; j <= size; j++) {
 		if (it.weight > j)
 		    vals[j][i] = vals[j][i - 1];
@@ -103,7 +104,17 @@ public class KnapsackDP implements Knapsack {
     private void traceBack() {
 	if (selectedItems == null)
 	    calculate();
-	selectedItems = new ArrayDeque<Item>();
+	selectedItems = new TreeSet<Item>(new Comparator<Item>() {
+
+	    @Override
+	    public int compare(Item o1, Item o2) {
+		if (o1.lbl < o2.lbl)
+		    return -1;
+		if (o1.lbl > o2.lbl)
+		    return 1;
+		return 0;
+	    }
+	});
 	int i = numberOfItems;
 	int j = size;
 	while (vals[j][i] != 0) {
@@ -111,7 +122,7 @@ public class KnapsackDP implements Knapsack {
 		i--;
 		continue;
 	    }
-	    selectedItems.push(items.get(i - 1));
+	    selectedItems.add(items.get(i - 1));
 	    i--;
 	    j -= items.get(i).weight;
 	}
