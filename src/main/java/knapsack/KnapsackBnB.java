@@ -19,12 +19,10 @@ public class KnapsackBnB implements Knapsack {
     public List<ItemBnB> items;
     public int total = -1;
     public NavigableSet<ItemBnB> selectedItems;
-    public long time;
 
     public KnapsackBnB(String filePath) {
 	getArray(filePath);
 	numberOfItems = items.size();
-
     }
 
     public KnapsackBnB() {
@@ -98,15 +96,13 @@ public class KnapsackBnB implements Knapsack {
 		return 0;
 	    }
 	};
-	time = System.currentTimeMillis();
 	Result result = getTempResult(0, size, new TreeSet<ItemBnB>(labelComp), 0);
 	if (result.totalValue > currMaxRes) {
 	    selectedItems = result.selectedItems;
 	    total = result.totalValue;
 	}
-	System.out.println(System.currentTimeMillis() - time);
     }
-
+    
     @Override
     public String getSelectedNumbers() {
 	if (selectedItems == null)
