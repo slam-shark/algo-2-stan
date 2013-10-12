@@ -1,12 +1,12 @@
 package main.java.APSP;
 
-import shortestPath.BellmanFord;
-import shortestPath.Dijkstra;
-import shortestPath.Edge;
-import shortestPath.Go;
-import shortestPath.Graph;
-import shortestPath.ShortestPathException;
-import shortestPath.Vertex;
+import main.java.shortestPath.BellmanFord;
+import main.java.shortestPath.Dijkstra;
+import main.java.shortestPath.Edge;
+import main.java.shortestPath.Go;
+import main.java.shortestPath.Graph;
+import main.java.shortestPath.ShortestPathException;
+import main.java.shortestPath.Vertex;
 
 public class Johnsons {
     Graph graph;
